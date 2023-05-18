@@ -28,7 +28,7 @@ class Client(models.Model):
         verbose_name_plural = 'Клієнти'
 
     def __str__(self):
-        return f'{self.last_name}, {self.first_name}'
+        return f'client-{self.id}'
 
 class Rental(models.Model):
     film_name = models.CharField(max_length=255, verbose_name='Назва фільму')
@@ -42,7 +42,7 @@ class Rental(models.Model):
         verbose_name_plural = 'Прокати'
 
     def __str__(self):
-        return f'{self.price}, {self.film_name}'
+        return f'rental-{self.id}'
 
 class Actor(models.Model):
     last_name = models.CharField(max_length=50, verbose_name='Прізвище актора')
@@ -57,21 +57,21 @@ class Actor(models.Model):
         verbose_name_plural = 'Актори'
 
     def __str__(self):
-        return f'{self.last_name}, {self.first_name}'
+        return f'actor-{self.id}'
 
 class Studio(models.Model):
     name = models.CharField(max_length=100, verbose_name='Назва')
     founded_year = models.PositiveIntegerField(verbose_name='Рік заснування')
     country = models.CharField(max_length=50, verbose_name='Країна')
     number_of_films = models.PositiveIntegerField(verbose_name='Кількість знятих фільмів')
-    revenue = models.DecimalField(max_digits=11, decimal_places=2, verbose_name='Прибуток')
+    revenue = models.DecimalField(max_digits=15, decimal_places=2, verbose_name='Прибуток')
     studio_film = models.ForeignKey('Film', on_delete=models.CASCADE, null=True, blank=True, related_name='studio_film', verbose_name='Фільм')
 
     class Meta:
         verbose_name_plural = 'Студії'
 
     def __str__(self):
-        return f'{self.name}'
+        return f'studio-{self.id}'
 
 class Director(models.Model):
     last_name = models.CharField(max_length=50, verbose_name='Прізвище режисера')
@@ -86,7 +86,7 @@ class Director(models.Model):
         verbose_name_plural = 'Режисери'
 
     def __str__(self):
-        return f'{self.last_name}, {self.first_name}'
+        return f'director-{self.id}'
 
 class Order(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Ціна замовлення')
@@ -99,7 +99,7 @@ class Order(models.Model):
         verbose_name_plural = 'Замовлення'
 
     def __str__(self):
-        return f'{self.volume}, {self.order_date}'
+        return f'order-{self.id}'
 
 class Payment(models.Model):
     PAYMENT_TYPE_CHOICES = [
@@ -119,4 +119,4 @@ class Payment(models.Model):
         verbose_name_plural = 'Платежі'
 
     def __str__(self):
-        return f"{self.payment_type} - {self.amount} ({self.payment_date})"
+        return f'payment-{self.id}'
